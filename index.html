@@ -8,21 +8,30 @@
     <style>
         :root { --primary: #6c5ce7; --accent: #00d2d3; --bg: #0f172a; --card: rgba(255, 255, 255, 0.1); --gold: #feca57; --pink: #ff9ff3; --red: #ff7675; }
         body { font-family: 'Outfit', sans-serif; background: var(--bg); color: white; display: flex; justify-content: center; padding: 10px; margin: 0; min-height: 100vh; overflow-x: hidden; }
-        .game-container { background: #1e293b; width: 100%; max-width: 700px; border-radius: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.5); position: relative; }
-        .screen { display: none; padding: 20px; text-align: center; }
+        .game-container { background: #1e293b; width: 100%; max-width: 750px; border-radius: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.5); position: relative; }
+        .screen { display: none; padding: 25px; text-align: center; }
         .active { display: block; }
         
-        /* 22 Tile Square Perimeter (6x6 Grid) */
-        .board-track { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(6, 1fr); gap: 6px; padding: 20px; background: rgba(0,0,0,0.3); height: 550px; position: relative; }
-        .tile { background: var(--card); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; color: #cbd5e1; border: 2px solid transparent; text-align: center; line-height: 1.2; position: relative; transition: 0.4s; }
-        .player-piece { position: absolute; font-size: 1.8rem; z-index: 100; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); pointer-events: none; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        /* Unified Lobby Layout */
+        .lobby-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; text-align: left; align-items: start; margin-top: 10px; }
+        .instr-panel { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 25px; border: 1px solid var(--accent); }
+        .instr-item { margin-bottom: 12px; font-size: 0.85rem; line-height: 1.4; display: flex; gap: 10px; }
+        .instr-num { background: var(--accent); color: #000; min-width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.7rem; }
+
+        .char-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .char-card { background: var(--card); padding: 15px; border-radius: 20px; cursor: pointer; border: 3px solid transparent; text-align: center; transition: 0.3s; }
+        .char-card.selected { border-color: var(--accent); background: rgba(0, 210, 211, 0.2); transform: scale(1.05); }
+
+        /* Board Path */
+        .board-track { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(6, 1fr); gap: 6px; padding: 20px; background: rgba(0,0,0,0.3); height: 500px; position: relative; }
+        .tile { background: var(--card); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: #cbd5e1; border: 2px solid transparent; text-align: center; line-height: 1.2; position: relative; }
+        .player-piece { position: absolute; font-size: 1.8rem; z-index: 100; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); pointer-events: none; }
         
-        /* THE MIDDLE (CENTER SPACE) */
-        .center-space { grid-column: 2 / 6; grid-row: 2 / 6; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 30px; margin: 10px; padding: 20px; }
+        /* CENTER UI */
+        .center-space { grid-column: 2 / 6; grid-row: 2 / 6; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border-radius: 30px; margin: 10px; padding: 20px; border: 1px dashed rgba(255,255,255,0.1); }
         
-        /* BIG 3D DICE */
-        .dice-wrap { perspective: 1000px; width: 80px; height: 80px; cursor: pointer; }
-        .dice { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .dice-wrap { perspective: 1000px; width: 80px; height: 80px; cursor: pointer; margin-bottom: 10px; }
+        .dice { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 1s; }
         .dice-face { position: absolute; width: 80px; height: 80px; background: white; border: 3px solid #ddd; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #333; font-weight: 900; font-size: 2.2rem; box-shadow: inset 0 0 20px rgba(0,0,0,0.1); }
         .f1 { transform: translateZ(40px); } .f2 { transform: rotateY(180deg) translateZ(40px); }
         .f3 { transform: rotateY(90deg) translateZ(40px); } .f4 { transform: rotateY(-90deg) translateZ(40px); }
@@ -30,44 +39,54 @@
         .rolling { animation: multi-spin 0.4s infinite linear; }
         @keyframes multi-spin { 0% { transform: rotateX(0deg) rotateY(0deg); } 100% { transform: rotateX(360deg) rotateY(360deg); } }
 
-        /* CONTROLS */
-        .btn { width: 90%; padding: 15px; border: none; border-radius: 20px; color: white; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
-        .btn-chance-big { background: var(--pink); color: #000; font-size: 1rem; border: 3px solid white; box-shadow: 0 10px 20px rgba(255, 159, 243, 0.3); }
-        .btn-roll-big { background: var(--primary); font-size: 1.2rem; box-shadow: 0 8px 0 #4834d4; }
-        .btn-roll-big:active { transform: translateY(4px); box-shadow: 0 4px 0 #4834d4; }
-
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); display: none; align-items: center; justify-content: center; z-index: 1000; }
-        .q-card { background: #1e293b; padding: 30px; border-radius: 40px; width: 90%; max-width: 500px; border: 3px solid var(--primary); text-align: center; }
-        .btn-mcq { background: var(--card); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; margin-bottom: 10px; width: 100%; cursor: pointer; text-align: left; font-size: 1rem; }
+        .btn { width: 95%; padding: 14px; border: none; border-radius: 20px; color: white; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+        .btn-chance-big { background: var(--pink); color: #000; border: 3px solid white; font-size: 0.9rem; }
+        .btn-roll-big { background: var(--primary); font-size: 1.1rem; box-shadow: 0 6px 0 #4834d4; }
         
-        .p-stat { text-align: center; padding: 10px; opacity: 0.4; flex: 1; font-size: 0.9rem; transition: 0.3s; }
-        .p-stat.active-turn { opacity: 1; background: rgba(255,255,255,0.1); border-radius: 15px; border: 2px solid var(--primary); transform: scale(1.1); }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
+        .card { background: #1e293b; padding: 30px; border-radius: 40px; width: 100%; max-width: 500px; border: 3px solid var(--primary); text-align: center; }
+        .btn-mcq { background: var(--card); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 15px; margin-bottom: 8px; width: 100%; cursor: pointer; text-align: left; font-size: 0.95rem; }
         
-        /* ROUND POPUP */
-        .round-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--gold); color: #000; padding: 30px 50px; border-radius: 100px; font-weight: 900; font-size: 2rem; z-index: 2000; display: none; animation: pop-in 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 5px solid white; box-shadow: 0 0 50px rgba(254, 202, 87, 0.6); }
-        @keyframes pop-in { 0% { transform: translate(-50%, -50%) scale(0); } 100% { transform: translate(-50%, -50%) scale(1); } }
+        .p-stat { text-align: center; padding: 8px; opacity: 0.4; flex: 1; transition: 0.3s; }
+        .p-stat.active-turn { opacity: 1; background: rgba(255,255,255,0.1); border-radius: 15px; border: 2px solid var(--primary); }
+        .round-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--gold); color: #000; padding: 20px 40px; border-radius: 50px; font-weight: 900; font-size: 2.2rem; display: none; z-index: 3000; border: 4px solid white; box-shadow: 0 0 30px var(--gold); }
     </style>
 </head>
 <body>
 
 <div class="game-container">
     <div id="screen-lobby" class="screen active">
-        <span style="color:var(--accent); font-weight:700;">PHARMACY INNOVATION</span>
-        <h1 style="font-size: 2.5rem; margin-top: 10px;">ChemistryPoly</h1>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin:25px 0;">
-            <div id="card0" onclick="togglePlayer(0)" style="background:var(--card); padding:20px; border-radius:25px; cursor:pointer; border:3px solid transparent;"><span>🐱</span><br><small id="n0">CAT-ALYST</small></div>
-            <div id="card1" onclick="togglePlayer(1)" style="background:var(--card); padding:20px; border-radius:25px; cursor:pointer; border:3px solid transparent;"><span>🐶</span><br><small id="n1">DOG-MA</small></div>
-            <div id="card2" onclick="togglePlayer(2)" style="background:var(--card); padding:20px; border-radius:25px; cursor:pointer; border:3px solid transparent;"><span>🦊</span><br><small id="n2">FOX-PHATE</small></div>
-            <div id="card3" onclick="togglePlayer(3)" style="background:var(--card); padding:20px; border-radius:25px; cursor:pointer; border:3px solid transparent;"><span>🐰</span><br><small id="n3">BUN-SEN</small></div>
+        <span style="color:var(--accent); font-weight:900;">SESSION SETUP</span>
+        <h1 style="margin: 5px 0 20px 0;">ChemistryPoly</h1>
+        
+        <div class="lobby-grid">
+            <div class="instr-panel">
+                <h3 style="color:var(--gold); margin-top:0;">Protocol</h3>
+                <div class="instr-item"><div class="instr-num">1</div><span>Start with <b>100 PTS</b> Grant.</span></div>
+                <div class="instr-item"><div class="instr-num">2</div><span>Correct: <b>+40 PTS</b> & Buy option.</span></div>
+                <div class="instr-item"><div class="instr-num">3</div><span>Wrong: <b>-20 PTS</b> Penalty.</span></div>
+                <div class="instr-item"><div class="instr-num">4</div><span>Pass GO: <b>+50 PTS</b> Bonus.</span></div>
+                <div class="instr-item"><div class="instr-num">5</div><span>Game ends after <b>3 Rounds</b>.</span></div>
+            </div>
+
+            <div class="char-selection">
+                <h3 style="margin-top:0;">Select Characters</h3>
+                <div class="char-grid">
+                    <div id="card0" onclick="togglePlayer(0)" class="char-card"><span>🐱</span><br><small id="n0">CAT-ALYST</small></div>
+                    <div id="card1" onclick="togglePlayer(1)" class="char-card"><span>🐶</span><br><small id="n1">DOG-MA</small></div>
+                    <div id="card2" onclick="togglePlayer(2)" class="char-card"><span>🦊</span><br><small id="n2">FOX-PHATE</small></div>
+                    <div id="card3" onclick="togglePlayer(3)" class="char-card"><span>🐰</span><br><small id="n3">BUN-SEN</small></div>
+                </div>
+                <button class="btn" style="background:var(--accent); color:#000;" id="startBtn" disabled onclick="startGame()">START GAME</button>
+            </div>
         </div>
-        <button class="btn btn-start" style="background:var(--accent)" id="startBtn" disabled onclick="startGame()">START SESSION</button>
     </div>
 
     <div id="screen-game" class="screen" style="padding:0;">
         <div id="roundAlert" class="round-popup">+50 PTS! 🧪</div>
         <div class="board-track" id="board">
             <div class="center-space">
-                <h4 id="statusLabel" style="font-size:1.2rem; margin-bottom:10px; color:var(--accent);">READY?</h4>
+                <h4 id="statusLabel" style="color:var(--accent); margin-bottom:10px;">READY</h4>
                 <div class="dice-wrap" onclick="rollDice()">
                     <div id="dice" class="dice">
                         <div class="dice-face f1">1</div><div class="dice-face f2">2</div><div class="dice-face f3">3</div>
@@ -79,11 +98,11 @@
             </div>
             <div id="piecesContainer"></div>
         </div>
-        <div id="dashboard" style="display:flex; background:rgba(0,0,0,0.5); padding:15px; justify-content: space-around;"></div>
+        <div id="dashboard" style="display:flex; background:rgba(0,0,0,0.5); padding:15px; justify-content:space-around;"></div>
     </div>
 </div>
 
-<div class="overlay" id="qOverlay"><div class="q-card"><h3 id="qHeader">TASK</h3><p id="qText"></p><div id="optionsArea"></div></div></div>
+<div class="modal" id="qOverlay" style="display:none;"><div class="card"><h3 id="qHeader">TASK</h3><p id="qText"></p><div id="optionsArea"></div></div></div>
 
 <script>
     const sounds = { roll: new Audio('https://www.soundjay.com/buttons/button-27.mp3'), correct: new Audio('https://www.soundjay.com/buttons/button-3.mp3'), wrong: new Audio('https://www.soundjay.com/buttons/button-10.mp3') };
@@ -93,9 +112,7 @@
         { id:1, text: "Definition of Molarity (M)?", options: ["Moles per Liter solution", "Moles per kg solvent", "Grams/L", "Mole fraction"], correct: "Moles per Liter solution", price: 60, rent: 50 },
         { id:2, text: "IUPAC name for [Co(NH<sub>3</sub>)<sub>6</sub>]Cl<sub>3</sub>?", options: ["Hexaamminecobalt(III) chloride", "Cobalt hexaammine chloride", "Hexaamminecobaltate", "Cobalt chloride"], correct: "Hexaamminecobalt(III) chloride", price: 100, rent: 80 },
         { id:3, text: "VSEPR shape of NH<sub>3</sub>?", options: ["Trigonal Pyramidal", "Trigonal Planar", "Tetrahedral", "Bent"], correct: "Trigonal Pyramidal", price: 60, rent: 50 },
-        { id:4, text: "Henderson-Hasselbalch: pH = pK<sub>a</sub> + log(___)", options: ["[A<sup>-</sup>]/[HA]", "[HA]/[A<sup>-</sup>]", "[OH<sup>-</sup>]/[H<sup>+</sup>]", "K<sub>w</sub>"], correct: "[A<sup>-</sup>]/[HA]", price: 150, rent: 100 },
-        { id:5, text: "EDTA is a ___ ligand.", options: ["Hexadentate", "Bidentate", "Monodentate", "Tridentate"], correct: "Hexadentate", price: 100, rent: 80 },
-        { id:6, text: "Choice of indicator depends on:", options: ["Equivalence point pH", "Titrant color", "Pressure", "Stirring"], correct: "Equivalence point pH", price: 100, rent: 80 }
+        { id:4, text: "Henderson-Hasselbalch: pH = pK<sub>a</sub> + log(___)", options: ["[A<sup>-</sup>]/[HA]", "[HA]/[A<sup>-</sup>]", "[OH<sup>-</sup>]/[H<sup>+</sup>]", "K<sub>w</sub>"], correct: "[A<sup>-</sup>]/[HA]", price: 150, rent: 100 }
     ];
 
     const tileNames = ["GO", "Molarity", "IUPAC", "AUDIT", "EDTA", "Redox", "Molality", "Mohr", "Buffer", "AUDIT", "pH/pK<sub>a</sub>", "Volhard", "Lab Bonus", "Precision", "VSEPR", "Henderson", "AUDIT", "Mole Frac", "Iodine", "NaOH Calc", "HCl Calc", "Hybridize"];
@@ -105,15 +122,15 @@
 
     function togglePlayer(id){
         chars[id].a = !chars[id].a;
-        document.getElementById('card'+id).style.borderColor = chars[id].a ? 'var(--accent)' : 'transparent';
+        document.getElementById('card'+id).classList.toggle('selected', chars[id].a);
         document.getElementById('n'+id).innerText = chars[id].a ? 'SELECTED' : chars[id].n;
         document.getElementById('startBtn').disabled = chars.filter(c=>c.a).length < 1;
     }
 
     function startGame(){
-        players = chars.filter(c=>c.a).map(c=>({...c, pos:0, pts:100, rounds:1, skip:false}));
+        players = chars.filter(c=>c.a).map(c=>({...c, pos:0, pts:100, skip:false}));
         document.getElementById('screen-lobby').style.display = 'none';
-        document.getElementById('screen-game').style.display = 'block';
+        document.getElementById('screen-game').classList.add('active');
         initBoard();
     }
 
@@ -156,17 +173,8 @@
 
     function movePlayer(s){
         let p = players[turn]; let old = p.pos; p.pos = (p.pos + s) % 22;
-        if(p.pos < old) { 
-            p.pts += 50; 
-            showRoundPop();
-        }
+        if(p.pos < old) { p.pts += 50; document.getElementById('roundAlert').style.display='block'; setTimeout(()=>document.getElementById('roundAlert').style.display='none', 1500); }
         updatePieces(); setTimeout(()=>handleLanding(p), 600);
-    }
-
-    function showRoundPop(){
-        const pop = document.getElementById('roundAlert');
-        pop.style.display = 'block';
-        setTimeout(()=> pop.style.display = 'none', 1500);
     }
 
     function handleLanding(p){
@@ -224,7 +232,7 @@
         let ts = players.filter((_,i)=>i!==turn);
         if(ts.length > 0){
             let t = ts[Math.floor(Math.random()*ts.length)];
-            t.skip = true; alert(`${t.icon} will skip turn.`);
+            t.skip = true; alert(`${t.icon} skip turn.`);
         }
         updateStats();
     }
