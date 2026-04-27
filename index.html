@@ -11,40 +11,35 @@
         .game-container { background: #1e293b; width: 100%; max-width: 750px; border-radius: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.5); position: relative; }
         .screen { display: none; padding: 25px; text-align: center; }
         .active { display: block; }
-        
-        .lobby-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; text-align: left; align-items: start; margin-top: 10px; }
+        .lobby-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; text-align: left; margin-top: 10px; }
         .instr-panel { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 25px; border: 1px solid var(--accent); }
-        .instr-item { margin-bottom: 10px; font-size: 0.8rem; line-height: 1.3; display: flex; gap: 8px; }
-        .instr-num { background: var(--accent); color: #000; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.65rem; }
-
+        .instr-item { margin-bottom: 8px; font-size: 0.75rem; display: flex; gap: 8px; line-height: 1.2; }
+        .instr-num { background: var(--accent); color: #000; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.6rem; }
         .char-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .char-card { background: var(--card); padding: 12px; border-radius: 20px; cursor: pointer; border: 3px solid transparent; text-align: center; transition: 0.3s; }
         .char-card.selected { border-color: var(--accent); background: rgba(0, 210, 211, 0.2); transform: scale(1.05); }
-
         .board-track { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(6, 1fr); gap: 6px; padding: 20px; background: rgba(0,0,0,0.3); height: 500px; position: relative; }
-        .tile { background: var(--card); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 700; color: #cbd5e1; border: 2px solid transparent; text-align: center; line-height: 1.2; position: relative; word-break: break-word; }
+        .tile { background: var(--card); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.5rem; font-weight: 700; color: #cbd5e1; border: 2px solid transparent; text-align: center; line-height: 1.1; position: relative; word-break: break-all; }
         .player-piece { position: absolute; font-size: 1.8rem; z-index: 100; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); pointer-events: none; }
-        
         .center-space { grid-column: 2 / 6; grid-row: 2 / 6; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border-radius: 30px; margin: 10px; padding: 15px; border: 1px dashed rgba(255,255,255,0.1); }
-        .dice-wrap { perspective: 1000px; width: 80px; height: 80px; cursor: pointer; margin-bottom: 5px; }
+        .dice-wrap { perspective: 1000px; width: 70px; height: 70px; cursor: pointer; margin-bottom: 5px; }
         .dice { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 1s; }
-        .dice-face { position: absolute; width: 80px; height: 80px; background: white; border: 3px solid #ddd; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #333; font-weight: 900; font-size: 2.2rem; box-shadow: inset 0 0 20px rgba(0,0,0,0.1); }
-        .f1 { transform: translateZ(40px); } .f2 { transform: rotateY(180deg) translateZ(40px); }
-        .f3 { transform: rotateY(90deg) translateZ(40px); } .f4 { transform: rotateY(-90deg) translateZ(40px); }
-        .f5 { transform: rotateX(90deg) translateZ(40px); } .f6 { transform: rotateX(-90deg) translateZ(40px); }
+        .dice-face { position: absolute; width: 70px; height: 70px; background: white; border: 3px solid #ddd; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #333; font-weight: 900; font-size: 2rem; box-shadow: inset 0 0 15px rgba(0,0,0,0.1); }
+        .f1 { transform: translateZ(35px); } .f2 { transform: rotateY(180deg) translateZ(35px); }
+        .f3 { transform: rotateY(90deg) translateZ(35px); } .f4 { transform: rotateY(-90deg) translateZ(35px); }
+        .f5 { transform: rotateX(90deg) translateZ(35px); } .f6 { transform: rotateX(-90deg) translateZ(35px); }
         .rolling { animation: multi-spin 0.4s infinite linear; }
         @keyframes multi-spin { 0% { transform: rotateX(0deg) rotateY(0deg); } 100% { transform: rotateX(360deg) rotateY(360deg); } }
-
         .btn { width: 95%; padding: 12px; border: none; border-radius: 20px; color: white; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 8px; }
         .btn-chance-big { background: var(--pink); color: #000; border: 2px solid white; font-size: 0.8rem; }
         .btn-roll-big { background: var(--primary); font-size: 1rem; box-shadow: 0 6px 0 #4834d4; }
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
         .card { background: #1e293b; padding: 25px; border-radius: 40px; width: 100%; max-width: 500px; border: 3px solid var(--primary); text-align: center; }
-        .btn-mcq { background: var(--card); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 15px; margin-bottom: 8px; width: 100%; cursor: pointer; text-align: left; font-size: 0.9rem; }
-        .p-stat { text-align: center; padding: 8px; opacity: 0.4; flex: 1; transition: 0.3s; }
+        .btn-mcq { background: var(--card); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 15px; margin-bottom: 8px; width: 100%; cursor: pointer; text-align: left; font-size: 0.85rem; }
+        .p-stat { text-align: center; padding: 8px; opacity: 0.4; flex: 1; transition: 0.3s; font-size: 0.75rem; }
         .p-stat.active-turn { opacity: 1; background: rgba(255,255,255,0.1); border-radius: 15px; border: 2px solid var(--primary); }
-        .round-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--gold); color: #000; padding: 20px 40px; border-radius: 50px; font-weight: 900; font-size: 2rem; display: none; z-index: 3000; border: 4px solid white; box-shadow: 0 0 30px var(--gold); }
         .owner-tag { position: absolute; top: -5px; font-size: 1.2rem; filter: drop-shadow(0 0 3px black); z-index: 10; }
+        .round-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--gold); color: #000; padding: 20px 40px; border-radius: 50px; font-weight: 900; font-size: 2rem; display: none; z-index: 3000; border: 4px solid white; box-shadow: 0 0 30px var(--gold); }
         sub, sup { font-size: 0.75em; line-height: 0; position: relative; vertical-align: baseline; }
     </style>
 </head>
@@ -56,15 +51,15 @@
         <h1 style="margin: 5px 0 15px 0;">ChemistryPoly</h1>
         <div class="lobby-grid">
             <div class="instr-panel">
-                <h3 style="color:var(--gold); margin-top:0;">High-Stakes Rules</h3>
+                <h3 style="color:var(--gold); margin:0 0 10px 0; font-size:1rem;">High-Stakes Rules</h3>
                 <div class="instr-item"><div class="instr-num">1</div><span>Initial Grant: <b>30 PTS</b>.</span></div>
                 <div class="instr-item"><div class="instr-num">2</div><span>Correct: <b>+20 PTS</b> | Wrong: <b>-30 PTS</b>.</span></div>
                 <div class="instr-item"><div class="instr-num">3</div><span>Audit Penalty: <b>-20 PTS</b>.</span></div>
-                <div class="instr-item"><div class="instr-num">4</div><span>Lab Bonus: <b>+40 PTS</b> | Pass GO: <b>+50</b>.</span></div>
-                <div class="instr-item"><div class="instr-num">5</div><span>Land Rental: <b>25 PTS</b>. min 50 PTS to buy!</span></div>
+                <div class="instr-item"><div class="instr-num">4</div><span>Lab Bonus: <b>+40 PTS</b> | Round: <b>+50</b>.</span></div>
+                <div class="instr-item"><div class="instr-num">5</div><span>Buy land (min 50 PTS) to collect rent!</span></div>
             </div>
             <div class="char-selection">
-                <h3 style="margin-top:0;">Characters</h3>
+                <h3 style="margin:0 0 10px 0; font-size:1rem;">Characters</h3>
                 <div class="char-grid">
                     <div id="card0" onclick="togglePlayer(0)" class="char-card"><span>🐱</span><br><small id="n0">CAT-ALYST</small></div>
                     <div id="card1" onclick="togglePlayer(1)" class="char-card"><span>🐶</span><br><small id="n1">DOG-MA</small></div>
@@ -103,57 +98,72 @@
     function play(t){ sounds[t].currentTime=0; sounds[t].play().catch(()=>{}); }
 
     const questions = [
-        // ANALYTICAL & METHODOLOGY
-        { id:1, mod: "ANALYTICAL", text: "Closeness of a measured value to the true value is:", options: ["Precision", "Accuracy", "Linearity", "Selectivity"], correct: "Accuracy", price: 50, rent: 20 },
-        { id:2, mod: "ANALYTICAL", text: "Reproducibility of a series of measurements is:", options: ["Accuracy", "Precision", "Selectivity", "Speed"], correct: "Precision", price: 50, rent: 20 },
-        { id:3, mod: "ANALYTICAL", text: "A primary standard should be:", options: ["Hygroscopic", "Highly pure and stable", "Highly volatile", "Liquid"], correct: "Highly pure and stable", price: 50, rent: 20 },
-        { id:4, mod: "ANALYTICAL", text: "Accuracy is measured by:", options: ["Percent Error", "Standard Deviation", "Variance", "Range"], correct: "Percent Error", price: 50, rent: 20 },
+        // ANALYTICAL
+        { id:1, mod:"ANALYTICAL", text:"Closeness of a measured value to the true value is:", options:["Precision","Accuracy","Linearity","Selectivity"], correct:"Accuracy", price:50, rent:20 },
+        { id:2, mod:"ANALYTICAL", text:"Reproducibility of measurements in a series is:", options:["Accuracy","Precision","Sensitivity","Speed"], correct:"Precision", price:50, rent:20 },
+        { id:3, mod:"ANALYTICAL", text:"Accuracy is usually expressed as:", options:["Standard Deviation","Percent Error","Variance","Range"], correct:"Percent Error", price:50, rent:20 },
+        { id:4, mod:"ANALYTICAL", text:"Precision is usually expressed as:", options:["Percent Error","Relative Standard Deviation","Mean","Sensitivity"], correct:"Relative Standard Deviation", price:50, rent:20 },
+        { id:5, mod:"ANALYTICAL", text:"Difference between measured and true value:", options:["Random Error","Systematic Error","Precision","Variance"], correct:"Systematic Error", price:60, rent:25 },
+        { id:6, mod:"ANALYTICAL", text:"Error causing data to scatter symmetrically:", options:["Systematic Error","Random Error","Constant Error","Blunder"], correct:"Random Error", price:60, rent:25 },
+        { id:7, mod:"ANALYTICAL", text:"Smallest amount an instrument can detect:", options:["Accuracy","Limit of Detection","Precision","Sensitivity"], correct:"Limit of Detection", price:70, rent:30 },
+        { id:8, mod:"ANALYTICAL", text:"Calibration of equipment primarily addresses:", options:["Random Error","Systematic Error","Precision","Human Error"], correct:"Systematic Error", price:70, rent:30 },
 
-        // CONCENTRATIONS & CALCULATIONS
-        { id:5, mod: "CONCENTRATIONS", text: "Definition of Molarity (M)?", options: ["Moles per Liter solution", "Moles per kg solvent", "Grams/L", "Mole fraction"], correct: "Moles per Liter solution", price: 80, rent: 30 },
-        { id:6, mod: "CONCENTRATIONS", text: "Definition of Molality (m)?", options: ["Moles/L solution", "Moles per kg solvent", "Weight %", "Grams/L"], correct: "Moles per kg solvent", price: 80, rent: 30 },
-        { id:7, mod: "CONCENTRATIONS", text: "Mole fraction (X<sub>A</sub>) is defined as:", options: ["Moles A / Total moles", "Moles A / kg solvent", "Weight / Volume", "Density"], correct: "Moles A / Total moles", price: 60, rent: 20 },
-        { id:8, mod: "CALCULATIONS", text: "Grams of NaOH (MW:40) for 500mL of 0.1M?", options: ["1g", "2g", "4g", "0.5g"], correct: "2g", price: 100, rent: 40 },
+        // TITRATIONS
+        { id:9, mod:"TITRATIONS", text:"Indicator for Mohr Method?", options:["Ferric Ion","Potassium Chromate","Fluorescein","Methyl Red"], correct:"Potassium Chromate", price:80, rent:30 },
+        { id:10, mod:"TITRATIONS", text:"Volhard Method is which type of titration?", options:["Direct","Back","Complexometric","Redox"], correct:"Back", price:100, rent:40 },
+        { id:11, mod:"TITRATIONS", text:"Indicator for EDTA at pH 10?", options:["Murexide","Erio-T","Starch","Litmus"], correct:"Erio-T", price:80, rent:30 },
+        { id:12, mod:"TITRATIONS", text:"EDTA is a ___ ligand:", options:["Bidentate","Tetradentate","Hexadentate","Monodentate"], correct:"Hexadentate", price:80, rent:30 },
+        { id:13, mod:"TITRATIONS", text:"Starch is the indicator for:", options:["KMnO4","Iodine","EDTA","AgNO3"], correct:"Iodine", price:80, rent:30 },
+        { id:14, mod:"TITRATIONS", text:"KMnO4 titration is:", options:["Self-indicating","Requires Starch","Requires Erio-T","Uses Phenolphthalein"], correct:"Self-indicating", price:80, rent:30 },
+        { id:15, mod:"TITRATIONS", text:"Which is a mandatory requirement for a Primary Standard?", options:["Highly hygroscopic","Highly pure and stable","Low molecular weight","Liquid state"], correct:"Highly pure and stable", price:100, rent:40 },
+        { id:16, mod:"TITRATIONS", text:"Standardizing EDTA usually requires:", options:["NaOH","CaCO3","HCl","KMnO4"], correct:"CaCO3", price:100, rent:40 },
 
-        // TITRATIONS & INDICATORS
-        { id:9, mod: "TITRATIONS", text: "Indicator used in the Mohr Method?", options: ["Potassium Chromate", "Ferric Ion", "Starch", "Methyl Red"], correct: "Potassium Chromate", price: 80, rent: 30 },
-        { id:10, mod: "TITRATIONS", text: "The Volhard Method is a type of ___ titration:", options: ["Direct", "Back", "Complexometric", "Redox"], correct: "Back", price: 100, rent: 40 },
-        { id:11, mod: "TITRATIONS", text: "Indicator for EDTA titration at pH 10?", options: ["Murexide", "Erio-T", "Starch", "Phenolphthalein"], correct: "Erio-T", price: 80, rent: 30 },
-        { id:12, mod: "TITRATIONS", text: "EDTA is what type of ligand?", options: ["Bidentate", "Tetradentate", "Hexadentate", "Monodentate"], correct: "Hexadentate", price: 80, rent: 30 },
-        { id:13, mod: "TITRATIONS", text: "Starch is the indicator for which titration?", options: ["KMnO<sub>4</sub>", "Iodine", "EDTA", "AgNO<sub>3</sub>"], correct: "Iodine", price: 80, rent: 30 },
-        { id:14, mod: "TITRATIONS", text: "KMnO<sub>4</sub> titration is usually:", options: ["Self-indicating", "Requires Starch", "Requires Erio-T", "Uses Litmus"], correct: "Self-indicating", price: 80, rent: 30 },
+        // CONCENTRATIONS
+        { id:17, mod:"CONC.", text:"Definition of Molarity (M)?", options:["Moles/L solution","Moles/kg solvent","Grams/L","Weight %"], correct:"Moles/L solution", price:80, rent:30 },
+        { id:18, mod:"CONC.", text:"Definition of Molality (m)?", options:["Moles/L solution","Moles/kg solvent","Mole fraction","Grams/mL"], correct:"Moles/kg solvent", price:80, rent:30 },
+        { id:19, mod:"CONC.", text:"Mole fraction (XA) formula is:", options:["nA / Total moles","nA / kg solvent","Weight / Volume","Density"], correct:"nA / Total moles", price:60, rent:20 },
+        { id:20, mod:"CONC.", text:"A 1 ppm solution contains 1mg of solute per ___ of solution:", options:["Liter","Kilogram","Milliliter","Gram"], correct:"Liter", price:70, rent:30 },
+        // UPDATED ID 21
+        { id:21, mod:"CONC.", text:"Weight/Volume (w/v) concentration is affected by which factor?", options:["Concentration","Temperature","Gravity","Catalyst"], correct:"Temperature", price:100, rent:40 },
+        { id:22, mod:"CONC.", text:"Grams of NaOH (MW:40) for 500mL of 0.1M?", options:["1g","2g","4g","0.5g"], correct:"2g", price:100, rent:40 },
+        { id:23, mod:"CONC.", text:"Dilution formula used in labs:", options:["PV=nRT","C1V1 = C2V2","pH = -log[H+]","n=m/MW"], correct:"C1V1 = C2V2", price:60, rent:25 },
+        { id:24, mod:"CONC.", text:"Density is defined as:", options:["Mass/Volume","Volume/Mass","Moles/L","Grams/Equivalent"], correct:"Mass/Volume", price:50, rent:20 },
 
-        // ACID-BASE & EQUILIBRIUM
-        { id:15, mod: "ACID-BASE", text: "Henderson-Hasselbalch: pH = pK<sub>a</sub> + log(___)", options: ["[A<sup>-</sup>]/[HA]", "[HA]/[A<sup>-</sup>]", "[OH<sup>-</sup>]/[H<sup>+</sup>]", "K<sub>w</sub>"], correct: "[A<sup>-</sup>]/[HA]", price: 100, rent: 40 },
-        { id:16, mod: "BUFFER", text: "Maximum buffering capacity occurs when:", options: ["pH = 7", "pH = pK<sub>a</sub>", "pOH = pK<sub>b</sub>", "pH = 1"], correct: "pH = pK<sub>a</sub>", price: 100, rent: 40 },
-        { id:17, mod: "ACID-BASE", text: "Bronsted-Lowry base is a:", options: ["Proton donor", "Proton acceptor", "Electron donor", "Hydroxyl source"], correct: "Proton acceptor", price: 50, rent: 20 },
-        { id:18, mod: "ACID-BASE", text: "Bronsted-Lowry acid is a:", options: ["Proton donor", "Proton acceptor", "Electron donor", "Electron acceptor"], correct: "Proton donor", price: 50, rent: 20 },
+        // ACID-BASE
+        { id:25, mod:"ACID-BASE", text:"Henderson-Hasselbalch equation:", options:["pH = pKa + log[A-]/[HA]","pH = pKa - log[A-]/[HA]","pH = -log[H+]","pKa = -log Ka"], correct:"pH = pKa + log[A-]/[HA]", price:100, rent:40 },
+        { id:26, mod:"ACID-BASE", text:"Max buffering capacity occurs when:", options:["pH = 7","pH = pKa","pOH = pKb","pH = 1"], correct:"pH = pKa", price:100, rent:40 },
+        { id:27, mod:"ACID-BASE", text:"Bronsted-Lowry base is a:", options:["Proton donor","Proton acceptor","Electron donor","Lewis acid"], correct:"Proton acceptor", price:50, rent:20 },
+        { id:28, mod:"ACID-BASE", text:"Bronsted-Lowry acid is a:", options:["Proton donor","Proton acceptor","Electron donor","Electron acceptor"], correct:"Proton donor", price:50, rent:20 },
+        { id:29, mod:"ACID-BASE", text:"pH + pOH always equals ___ at 25°C:", options:["7","14","1","10"], correct:"14", price:60, rent:25 },
+        { id:30, mod:"ACID-BASE", text:"Strong acid example:", options:["CH3COOH","HCl","NH3","H2CO3"], correct:"HCl", price:50, rent:20 },
+        { id:31, mod:"ACID-BASE", text:"A buffer consists of a weak acid and its:", options:["Strong base","Conjugate base","Solvent","Indicator"], correct:"Conjugate base", price:80, rent:30 },
+        { id:32, mod:"ACID-BASE", text:"Ka measures the strength of:", options:["Strong bases","Weak acids","Solubility","Ionic bonds"], correct:"Weak acids", price:100, rent:40 },
 
-        // IUPAC & COMPLEXES
-        { id:19, mod: "IUPAC", text: "Name for [Co(NH<sub>3</sub>)<sub>6</sub>]Cl<sub>3</sub>?", options: ["Hexaamminecobalt(III) chloride", "Cobalt hexammine chloride", "Hexaamminecobaltate chloride", "Cobalt ammine chloride"], correct: "Hexaamminecobalt(III) chloride", price: 100, rent: 40 },
-        { id:20, mod: "IUPAC", text: "Name for K<sub>4</sub>[Fe(CN)<sub>6</sub>]?", options: ["Potassium hexacyanoferrate(II)", "Potassium ferrate", "Hexacyanopotassium ferrate", "Potassium cyanoferrate(IV)"], correct: "Potassium hexacyanoferrate(II)", price: 100, rent: 40 },
-        { id:21, mod: "IUPAC", text: "Name for [Ag(NH<sub>3</sub>)<sub>2</sub>]<sup>+</sup>?", options: ["Diamminesilver(I) ion", "Silver diamine ion", "Diamminesilverate", "Argentum ion"], correct: "Diamminesilver(I) ion", price: 80, rent: 30 },
+        // VSEPR
+        { id:33, mod:"VSEPR", text:"Shape of NH3 according to VSEPR?", options:["Trigonal Planar","Trigonal Pyramidal","Tetrahedral","Bent"], correct:"Trigonal Pyramidal", price:60, rent:20 },
+        { id:34, mod:"VSEPR", text:"Molecular shape of PCl5?", options:["Octahedral","Trigonal Bipyramidal","Tetrahedral","Linear"], correct:"Trigonal Bipyramidal", price:100, rent:40 },
+        { id:35, mod:"VSEPR", text:"Shape of H2O according to VSEPR?", options:["Linear","Bent","Tetrahedral","Trigonal Planar"], correct:"Bent", price:60, rent:20 },
+        { id:36, mod:"VSEPR", text:"Shape of CH4?", options:["Square Planar","Tetrahedral","Octahedral","Pyramidal"], correct:"Tetrahedral", price:80, rent:30 },
+        { id:37, mod:"VSEPR", text:"Bond angle in linear CO2?", options:["90°","109.5°","120°","180°"], correct:"180°", price:60, rent:25 },
+        { id:38, mod:"VSEPR", text:"Shape of SF6?", options:["Octahedral","Hexagonal","Square Planar","Trigonal Bipyramidal"], correct:"Octahedral", price:100, rent:40 },
+        { id:39, mod:"VSEPR", text:"Bond angle in tetrahedral CH4?", options:["180°","120°","109.5°","90°"], correct:"109.5°", price:80, rent:30 },
+        { id:40, mod:"VSEPR", text:"Shape of BF3?", options:["Trigonal Planar","Trigonal Pyramidal","Bent","Linear"], correct:"Trigonal Planar", price:80, rent:30 },
 
-        // VSEPR & STRUCTURES
-        { id:22, mod: "VSEPR", text: "Shape of NH<sub>3</sub> according to VSEPR?", options: ["Trigonal Planar", "Trigonal Pyramidal", "Tetrahedral", "Bent"], correct: "Trigonal Pyramidal", price: 60, rent: 20 },
-        { id:23, mod: "VSEPR", text: "Molecular shape of PCl<sub>5</sub>?", options: ["Octahedral", "Trigonal Bipyramidal", "Tetrahedral", "Linear"], correct: "Trigonal Bipyramidal", price: 100, rent: 40 },
-        { id:24, mod: "VSEPR", text: "Molecular shape of SF<sub>6</sub>?", options: ["Octahedral", "Tetrahedral", "Square Planar", "Bent"], correct: "Octahedral", price: 100, rent: 40 },
-
-        // HYBRIDIZATION & BONDING
-        { id:25, mod: "HYBRIDIZATION", text: "Hybridization of C in Methane (CH<sub>4</sub>)?", options: ["sp", "sp<sup>2</sup>", "sp<sup>3</sup>", "dsp<sup>2</sup>"], correct: "sp<sup>3</sup>", price: 60, rent: 20 },
-        { id:26, mod: "HYBRIDIZATION", text: "Hybridization of C in Ethene (C<sub>2</sub>H<sub>4</sub>)?", options: ["sp", "sp<sup>2</sup>", "sp<sup>3</sup>", "sp<sup>3</sup>d"], correct: "sp<sup>2</sup>", price: 80, rent: 30 },
-        { id:27, mod: "HYBRIDIZATION", text: "Hybridization in PCl<sub>5</sub>?", options: ["sp<sup>3</sup>d", "sp<sup>3</sup>d<sup>2</sup>", "sp<sup>2</sup>", "dsp<sup>2</sup>"], correct: "sp<sup>3</sup>d", price: 100, rent: 40 },
-        { id:28, mod: "HYBRIDIZATION", text: "Hybridization in SF<sub>6</sub>?", options: ["sp<sup>3</sup>d<sup>2</sup>", "sp<sup>3</sup>d", "sp<sup>3</sup>", "sp<sup>2</sup>"], correct: "sp<sup>3</sup>d<sup>2</sup>", price: 100, rent: 40 },
-
-        // MO THEORY
-        { id:29, mod: "MO THEORY", text: "Bond order for O<sub>2</sub><sup>+</sup> in MO theory?", options: ["1.5", "2.0", "2.5", "3.0"], correct: "2.5", price: 100, rent: 40 },
-        { id:30, mod: "MO THEORY", text: "Paramagnetism of Oxygen is explained by:", options: ["VSEPR", "Valence Bond", "Molecular Orbital", "Lewis Theory"], correct: "Molecular Orbital", price: 100, rent: 40 }
+        // BONDING
+        { id:41, mod:"BONDING", text:"Hybridization of C in Methane (CH4)?", options:["sp","sp2","sp3","dsp2"], correct:"sp3", price:60, rent:20 },
+        { id:42, mod:"BONDING", text:"Hybridization of C in Ethene (C2H4)?", options:["sp","sp2","sp3","sp3d"], correct:"sp2", price:80, rent:30 },
+        { id:43, mod:"BONDING", text:"Bond order for O2+ in MO theory?", options:["1.5","2.0","2.5","3.0"], correct:"2.5", price:100, rent:40 },
+        { id:44, mod:"BONDING", text:"Paramagnetism of Oxygen is explained by:", options:["VSEPR","Valence Bond","Molecular Orbital","Lewis Theory"], correct:"Molecular Orbital", price:100, rent:40 },
+        { id:45, mod:"BONDING", text:"Bond order for N2 in MO theory?", options:["1.0","2.0","3.0","2.5"], correct:"3.0", price:100, rent:40 },
+        { id:46, mod:"BONDING", text:"Hybridization of C in Ethyne (C2H2)?", options:["sp","sp2","sp3","dsp2"], correct:"sp", price:80, rent:30 },
+        { id:47, mod:"BONDING", text:"A sigma bond (σ) is formed by ___ overlap:", options:["Side-to-side","End-to-end","Parallel","Perpendicular"], correct:"End-to-end", price:100, rent:40 },
+        { id:48, mod:"BONDING", text:"A pi bond (π) is formed by ___ overlap:", options:["End-to-end","Side-to-side","Axial","Direct"], correct:"Side-to-side", price:100, rent:40 }
     ];
 
-    const tileNames = ["GO", "ANALYTICAL", "IUPAC", "AUDIT", "EDTA", "REDOX", "CONC.", "TITRATIONS", "BUFFER", "AUDIT", "ACID-BASE", "TITRATIONS", "LAB BONUS", "ANALYTICAL", "VSEPR", "EQUILIBRIUM", "AUDIT", "CONC.", "REDOX", "CALCULATIONS", "HYBRIDIZATION", "MO THEORY"];
+    const tileNames = ["GO", "ANALYTICAL", "BONDING", "AUDIT", "TITRATIONS", "VSEPR", "CONC.", "TITRATIONS", "ACID-BASE", "AUDIT", "ACID-BASE", "TITRATIONS", "LAB BONUS", "ANALYTICAL", "VSEPR", "CONC.", "AUDIT", "CONC.", "BONDING", "ACID-BASE", "BONDING", "VSEPR"];
     const ownerCols = ["#6c5ce7", "#00d2d3", "#e67e22", "#ff9ff3"];
     let players = [], turn = 0, rolling = false, owners = {}, chars = [{id:0, icon:'🐱', n:'CAT-ALYST', a:false},{id:1, icon:'🐶', n:'DOG-MA', a:false},{id:2, icon:'🦊', n:'FOX-PHATE', a:false},{id:3, icon:'🐰', n:'BUN-SEN', a:false}];
-    let usedQs = [];
+    let usedQsGlobal = [];
 
     function togglePlayer(id){
         chars[id].a = !chars[id].a;
@@ -222,16 +232,17 @@
         if(tileNames[p.pos] === "LAB BONUS") { p.pts += 40; alert("LAB BONUS! +40 PTS"); endTurn(); return; }
         if(tileNames[p.pos] === "AUDIT") { p.pts -= 20; alert("Audit Penalty! -20 PTS"); endTurn(); return; }
         if(owners[p.pos] !== undefined && owners[p.pos] !== turn){
-            let o = players[owners[p.pos]]; p.pts -= 25; o.pts += 25;
+            let rent = 25; // Base rent
+            let o = players[owners[p.pos]]; p.pts -= rent; o.pts += rent;
             alert(`Rent Paid: 25 PTS to ${o.icon}`); endTurn();
         } else { showQuestion(p.pos, p); }
     }
 
     function showQuestion(tid, p){
-        let pool = questions.filter(q => !usedQs.includes(q.id));
-        if(pool.length === 0) { usedQs = []; pool = questions; }
+        let pool = questions.filter(q => !usedQsGlobal.includes(q.id));
+        if(pool.length === 0) { usedQsGlobal = []; pool = questions; }
         const q = pool[Math.floor(Math.random()*pool.length)];
-        usedQs.push(q.id);
+        usedQsGlobal.push(q.id);
         document.getElementById('qOverlay').style.display = 'flex';
         document.getElementById('qText').innerHTML = `<small>${q.mod}</small><br>${q.text}`;
         const area = document.getElementById('optionsArea'); area.innerHTML = '';
@@ -269,7 +280,7 @@
         let ts = players.filter((_,i)=>i!==turn);
         if(ts.length > 0){
             let t = ts[Math.floor(Math.random()*ts.length)];
-            t.skip = true; alert(`Chance! ${t.icon} skip turn.`);
+            t.skip = true; alert(`Chance! ${t.icon} skip next turn.`);
         }
         updateStats();
     }
