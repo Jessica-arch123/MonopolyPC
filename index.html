@@ -11,18 +11,22 @@
         .game-container { background: #1e293b; width: 100%; max-width: 750px; border-radius: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.5); position: relative; }
         .screen { display: none; padding: 25px; text-align: center; }
         .active { display: block; }
+        
         .lobby-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; text-align: left; align-items: start; margin-top: 10px; }
         .instr-panel { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 25px; border: 1px solid var(--accent); }
-        .instr-item { margin-bottom: 12px; font-size: 0.85rem; line-height: 1.4; display: flex; gap: 10px; }
-        .instr-num { background: var(--accent); color: #000; min-width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.7rem; }
-        .char-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .char-card { background: var(--card); padding: 15px; border-radius: 20px; cursor: pointer; border: 3px solid transparent; text-align: center; transition: 0.3s; }
+        .instr-item { margin-bottom: 10px; font-size: 0.8rem; line-height: 1.3; display: flex; gap: 8px; }
+        .instr-num { background: var(--accent); color: #000; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.65rem; }
+
+        .char-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .char-card { background: var(--card); padding: 12px; border-radius: 20px; cursor: pointer; border: 3px solid transparent; text-align: center; transition: 0.3s; }
         .char-card.selected { border-color: var(--accent); background: rgba(0, 210, 211, 0.2); transform: scale(1.05); }
+
         .board-track { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(6, 1fr); gap: 6px; padding: 20px; background: rgba(0,0,0,0.3); height: 500px; position: relative; }
-        .tile { background: var(--card); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: #cbd5e1; border: 2px solid transparent; text-align: center; line-height: 1.2; position: relative; }
+        .tile { background: var(--card); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 700; color: #cbd5e1; border: 2px solid transparent; text-align: center; line-height: 1.2; position: relative; word-break: break-word; }
         .player-piece { position: absolute; font-size: 1.8rem; z-index: 100; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); pointer-events: none; }
-        .center-space { grid-column: 2 / 6; grid-row: 2 / 6; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border-radius: 30px; margin: 10px; padding: 20px; border: 1px dashed rgba(255,255,255,0.1); }
-        .dice-wrap { perspective: 1000px; width: 80px; height: 80px; cursor: pointer; margin-bottom: 10px; }
+        
+        .center-space { grid-column: 2 / 6; grid-row: 2 / 6; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); border-radius: 30px; margin: 10px; padding: 15px; border: 1px dashed rgba(255,255,255,0.1); }
+        .dice-wrap { perspective: 1000px; width: 80px; height: 80px; cursor: pointer; margin-bottom: 5px; }
         .dice { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 1s; }
         .dice-face { position: absolute; width: 80px; height: 80px; background: white; border: 3px solid #ddd; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #333; font-weight: 900; font-size: 2.2rem; box-shadow: inset 0 0 20px rgba(0,0,0,0.1); }
         .f1 { transform: translateZ(40px); } .f2 { transform: rotateY(180deg) translateZ(40px); }
@@ -30,15 +34,17 @@
         .f5 { transform: rotateX(90deg) translateZ(40px); } .f6 { transform: rotateX(-90deg) translateZ(40px); }
         .rolling { animation: multi-spin 0.4s infinite linear; }
         @keyframes multi-spin { 0% { transform: rotateX(0deg) rotateY(0deg); } 100% { transform: rotateX(360deg) rotateY(360deg); } }
-        .btn { width: 95%; padding: 14px; border: none; border-radius: 20px; color: white; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
-        .btn-chance-big { background: var(--pink); color: #000; border: 3px solid white; font-size: 0.9rem; }
-        .btn-roll-big { background: var(--primary); font-size: 1.1rem; box-shadow: 0 6px 0 #4834d4; }
+
+        .btn { width: 95%; padding: 12px; border: none; border-radius: 20px; color: white; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 8px; }
+        .btn-chance-big { background: var(--pink); color: #000; border: 2px solid white; font-size: 0.8rem; }
+        .btn-roll-big { background: var(--primary); font-size: 1rem; box-shadow: 0 6px 0 #4834d4; }
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
-        .card { background: #1e293b; padding: 30px; border-radius: 40px; width: 100%; max-width: 500px; border: 3px solid var(--primary); text-align: center; }
-        .btn-mcq { background: var(--card); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 15px; margin-bottom: 8px; width: 100%; cursor: pointer; text-align: left; font-size: 0.95rem; }
+        .card { background: #1e293b; padding: 25px; border-radius: 40px; width: 100%; max-width: 500px; border: 3px solid var(--primary); text-align: center; }
+        .btn-mcq { background: var(--card); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 15px; margin-bottom: 8px; width: 100%; cursor: pointer; text-align: left; font-size: 0.9rem; }
         .p-stat { text-align: center; padding: 8px; opacity: 0.4; flex: 1; transition: 0.3s; }
         .p-stat.active-turn { opacity: 1; background: rgba(255,255,255,0.1); border-radius: 15px; border: 2px solid var(--primary); }
-        .round-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--gold); color: #000; padding: 20px 40px; border-radius: 50px; font-weight: 900; font-size: 2.2rem; display: none; z-index: 3000; border: 4px solid white; box-shadow: 0 0 30px var(--gold); }
+        .round-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--gold); color: #000; padding: 20px 40px; border-radius: 50px; font-weight: 900; font-size: 2rem; display: none; z-index: 3000; border: 4px solid white; box-shadow: 0 0 30px var(--gold); }
+        .owner-tag { position: absolute; top: -5px; font-size: 1.2rem; filter: drop-shadow(0 0 3px black); z-index: 10; }
         sub, sup { font-size: 0.75em; line-height: 0; position: relative; vertical-align: baseline; }
     </style>
 </head>
@@ -47,18 +53,18 @@
 <div class="game-container">
     <div id="screen-lobby" class="screen active">
         <span style="color:var(--accent); font-weight:900;">SESSION SETUP</span>
-        <h1 style="margin: 5px 0 20px 0;">ChemistryPoly</h1>
+        <h1 style="margin: 5px 0 15px 0;">ChemistryPoly</h1>
         <div class="lobby-grid">
             <div class="instr-panel">
-                <h3 style="color:var(--gold); margin-top:0;">Protocol</h3>
-                <div class="instr-item"><div class="instr-num">1</div><span>Start with <b>100 PTS</b> Grant.</span></div>
-                <div class="instr-item"><div class="instr-num">2</div><span>Correct: <b>+40 PTS</b> & Buy option.</span></div>
-                <div class="instr-item"><div class="instr-num">3</div><span>Wrong: <b>-20 PTS</b> Penalty.</span></div>
-                <div class="instr-item"><div class="instr-num">4</div><span>Pass GO: <b>+50 PTS</b> Bonus.</span></div>
-                <div class="instr-item"><div class="instr-num">5</div><span>Game ends after <b>3 Rounds</b>.</span></div>
+                <h3 style="color:var(--gold); margin-top:0;">High-Stakes Rules</h3>
+                <div class="instr-item"><div class="instr-num">1</div><span>Initial Grant: <b>30 PTS</b>.</span></div>
+                <div class="instr-item"><div class="instr-num">2</div><span>Correct: <b>+20 PTS</b> | Wrong: <b>-30 PTS</b>.</span></div>
+                <div class="instr-item"><div class="instr-num">3</div><span>Audit Penalty: <b>-20 PTS</b>.</span></div>
+                <div class="instr-item"><div class="instr-num">4</div><span>Lab Bonus: <b>+40 PTS</b> | Pass GO: <b>+50</b>.</span></div>
+                <div class="instr-item"><div class="instr-num">5</div><span>Land Rental: <b>25 PTS</b>. min 50 PTS to buy!</span></div>
             </div>
             <div class="char-selection">
-                <h3 style="margin-top:0;">Select Characters</h3>
+                <h3 style="margin-top:0;">Characters</h3>
                 <div class="char-grid">
                     <div id="card0" onclick="togglePlayer(0)" class="char-card"><span>🐱</span><br><small id="n0">CAT-ALYST</small></div>
                     <div id="card1" onclick="togglePlayer(1)" class="char-card"><span>🐶</span><br><small id="n1">DOG-MA</small></div>
@@ -74,7 +80,7 @@
         <div id="roundAlert" class="round-popup">+50 PTS! 🧪</div>
         <div class="board-track" id="board">
             <div class="center-space">
-                <h4 id="statusLabel" style="color:var(--accent); margin-bottom:10px;">READY</h4>
+                <h4 id="statusLabel" style="color:var(--accent); margin-bottom:5px; font-size:0.9rem;">READY</h4>
                 <div class="dice-wrap" onclick="rollDice()">
                     <div id="dice" class="dice">
                         <div class="dice-face f1">1</div><div class="dice-face f2">2</div><div class="dice-face f3">3</div>
@@ -82,11 +88,11 @@
                     </div>
                 </div>
                 <button id="rollBtn" class="btn btn-roll-big" onclick="rollDice()">ROLL</button>
-                <button class="btn btn-chance-big" onclick="buySabotage()">BUY CHANCE</button>
+                <button class="btn btn-chance-big" onclick="buySabotage()">BUY CHANCE (50)</button>
             </div>
             <div id="piecesContainer"></div>
         </div>
-        <div id="dashboard" style="display:flex; background:rgba(0,0,0,0.5); padding:15px; justify-content:space-around;"></div>
+        <div id="dashboard" style="display:flex; background:rgba(0,0,0,0.5); padding:10px; justify-content:space-around;"></div>
     </div>
 </div>
 
@@ -97,49 +103,57 @@
     function play(t){ sounds[t].currentTime=0; sounds[t].play().catch(()=>{}); }
 
     const questions = [
-        // Analytical Methods
-        { id:1, text: "Closeness of a measured value to the true value is:", options: ["Precision", "Accuracy", "Sensitivity", "Linearity"], correct: "Accuracy", price: 60, rent: 50 },
-        { id:2, text: "Reproducibility of a series of measurements is:", options: ["Accuracy", "Precision", "Selectivity", "Speed"], correct: "Precision", price: 60, rent: 50 },
-        // Concentrations
-        { id:3, text: "Definition of Molarity (M)?", options: ["Moles/L solution", "Moles/kg solvent", "Grams/L", "Mole fraction"], correct: "Moles/L solution", price: 100, rent: 80 },
-        { id:4, text: "Definition of Molality (m)?", options: ["Moles/L solution", "Moles/kg solvent", "Weight %", "Grams/L"], correct: "Moles/kg solvent", price: 100, rent: 80 },
-        // Titrations
-        { id:5, text: "A primary standard should be:", options: ["Hygroscopic", "Highly pure and stable", "Highly volatile", "Liquid"], correct: "Highly pure and stable", price: 60, rent: 50 },
-        { id:6, text: "Indicator used in the Mohr Method?", options: ["Ferric Ion", "Potassium Chromate", "Fluorescein", "Methyl Red"], correct: "Potassium Chromate", price: 100, rent: 80 },
-        { id:7, text: "The Volhard Method is a type of ___ titration:", options: ["Direct", "Back", "Complexometric", "Redox"], correct: "Back", price: 150, rent: 100 },
-        { id:8, text: "Indicator for EDTA titration at pH 10?", options: ["Murexide", "Erio-T", "Starch", "Phenolphthalein"], correct: "Erio-T", price: 100, rent: 80 },
-        { id:9, text: "IUPAC name for [Co(NH<sub>3</sub>)<sub>6</sub>]Cl<sub>3</sub>?", options: ["Hexaamminecobalt(III) chloride", "Cobalt hexammine chloride", "Hexaamminecobaltate chloride", "Cobalt ammine chloride"], correct: "Hexaamminecobalt(III) chloride", price: 150, rent: 100 },
-        // Acid-Base
-        { id:10, text: "Henderson-Hasselbalch: pH = pK<sub>a</sub> + log(___)", options: ["[A<sup>-</sup>]/[HA]", "[HA]/[A<sup>-</sup>]", "[OH<sup>-</sup>]/[H<sup>+</sup>]", "K<sub>w</sub>"], correct: "[A<sup>-</sup>]/[HA]", price: 150, rent: 100 },
-        { id:11, text: "Maximum buffering capacity occurs when:", options: ["pH = 7", "pH = pK<sub>a</sub>", "pOH = pK<sub>b</sub>", "pH = 1"], correct: "pH = pK<sub>a</sub>", price: 100, rent: 80 },
-        { id:12, text: "Bronsted-Lowry base is a:", options: ["Proton donor", "Proton acceptor", "Electron donor", "Hydroxyl source"], correct: "Proton acceptor", price: 60, rent: 50 },
-        // Redox
-        { id:13, text: "Starch is used as an indicator for:", options: ["KMnO<sub>4</sub>", "Iodine titrations", "EDTA", "AgNO<sub>3</sub>"], correct: "Iodine titrations", price: 100, rent: 80 },
-        { id:14, text: "Permanganate titration (KMnO<sub>4</sub>) is usually:", options: ["Self-indicating", "Requires Starch", "Requires Erio-T", "Uses Litmus"], correct: "Self-indicating", price: 100, rent: 80 },
-        // Structural Chemistry
-        { id:15, text: "Shape of NH<sub>3</sub> according to VSEPR?", options: ["Trigonal Planar", "Trigonal Pyramidal", "Tetrahedral", "Bent"], correct: "Trigonal Pyramidal", price: 60, rent: 50 },
-        { id:16, text: "Molecular shape of PCl<sub>5</sub>?", options: ["Octahedral", "Trigonal Bipyramidal", "Tetrahedral", "Linear"], correct: "Trigonal Bipyramidal", price: 150, rent: 100 },
-        { id:17, text: "Hybridization of C in Methane (CH<sub>4</sub>)?", options: ["sp", "sp<sup>2</sup>", "sp<sup>3</sup>", "dsp<sup>2</sup>"], correct: "sp<sup>3</sup>", price: 60, rent: 50 },
-        { id:18, text: "Hybridization in Ethene (C<sub>2</sub>H<sub>4</sub>)?", options: ["sp", "sp<sup>2</sup>", "sp<sup>3</sup>", "sp<sup>3</sup>d"], correct: "sp<sup>2</sup>", price: 100, rent: 80 },
-        { id:19, text: "Hybridization in Ethyne (C<sub>2</sub>H<sub>2</sub>)?", options: ["sp", "sp<sup>2</sup>", "sp<sup>3</sup>", "sp<sup>3</sup>d<sup>2</sup>"], correct: "sp", price: 100, rent: 80 },
-        { id:20, text: "Bond order for O<sub>2</sub><sup>+</sup> in MO theory?", options: ["1.5", "2.0", "2.5", "3.0"], correct: "2.5", price: 150, rent: 100 },
-        { id:21, text: "Bond order for N<sub>2</sub> in MO theory?", options: ["1.0", "2.0", "3.0", "2.5"], correct: "3.0", price: 150, rent: 100 },
-        { id:22, text: "Which theory explains the paramagnetism of Oxygen?", options: ["VSEPR", "Valence Bond", "Molecular Orbital", "Lewis Theory"], correct: "Molecular Orbital", price: 100, rent: 80 },
-        // Calculation/Units
-        { id:23, text: "Mole fraction of A is defined as:", options: ["Moles A / kg solvent", "Moles A / Total moles", "Grams A / Volume", "Moles A / Moles B"], correct: "Moles A / Total moles", price: 60, rent: 50 },
-        { id:24, text: "Grams of NaOH (MW:40) for 500mL of 0.1M?", options: ["1g", "2g", "4g", "0.5g"], correct: "2g", price: 100, rent: 80 },
-        { id:25, text: "IUPAC name for [Ag(NH<sub>3</sub>)<sub>2</sub>]<sup>+</sup>?", options: ["Diamminesilver(I) ion", "Silver diamine ion", "Diamminesilverate", "Argentum ion"], correct: "Diamminesilver(I) ion", price: 100, rent: 80 },
-        { id:26, text: "IUPAC for K<sub>4</sub>[Fe(CN)<sub>6</sub>]?", options: ["Potassium hexacyanoferrate(II)", "Potassium ferrate", "Hexacyanopotassium ferrate", "Potassium cyanoferrate(IV)"], correct: "Potassium hexacyanoferrate(II)", price: 150, rent: 100 },
-        { id:27, text: "Solubility Product is represented by:", options: ["K<sub>a</sub>", "K<sub>b</sub>", "K<sub>sp</sub>", "K<sub>w</sub>"], correct: "K<sub>sp</sub>", price: 60, rent: 50 },
-        { id:28, text: "Shape of SF<sub>6</sub>?", options: ["Octahedral", "Tetrahedral", "Square Planar", "Bent"], correct: "Octahedral", price: 150, rent: 100 },
-        { id:29, text: "EDTA is a ___ ligand:", options: ["Bidentate", "Tetradentate", "Hexadentate", "Monodentate"], correct: "Hexadentate", price: 100, rent: 80 },
-        { id:30, text: "Indicator for EDTA of Ca<sup>2+</sup> at pH 12?", options: ["Murexide", "Erio-T", "Xylenol Orange", "Starch"], correct: "Murexide", price: 100, rent: 80 }
+        // ANALYTICAL & METHODOLOGY
+        { id:1, mod: "ANALYTICAL", text: "Closeness of a measured value to the true value is:", options: ["Precision", "Accuracy", "Linearity", "Selectivity"], correct: "Accuracy", price: 50, rent: 20 },
+        { id:2, mod: "ANALYTICAL", text: "Reproducibility of a series of measurements is:", options: ["Accuracy", "Precision", "Selectivity", "Speed"], correct: "Precision", price: 50, rent: 20 },
+        { id:3, mod: "ANALYTICAL", text: "A primary standard should be:", options: ["Hygroscopic", "Highly pure and stable", "Highly volatile", "Liquid"], correct: "Highly pure and stable", price: 50, rent: 20 },
+        { id:4, mod: "ANALYTICAL", text: "Accuracy is measured by:", options: ["Percent Error", "Standard Deviation", "Variance", "Range"], correct: "Percent Error", price: 50, rent: 20 },
+
+        // CONCENTRATIONS & CALCULATIONS
+        { id:5, mod: "CONCENTRATIONS", text: "Definition of Molarity (M)?", options: ["Moles per Liter solution", "Moles per kg solvent", "Grams/L", "Mole fraction"], correct: "Moles per Liter solution", price: 80, rent: 30 },
+        { id:6, mod: "CONCENTRATIONS", text: "Definition of Molality (m)?", options: ["Moles/L solution", "Moles per kg solvent", "Weight %", "Grams/L"], correct: "Moles per kg solvent", price: 80, rent: 30 },
+        { id:7, mod: "CONCENTRATIONS", text: "Mole fraction (X<sub>A</sub>) is defined as:", options: ["Moles A / Total moles", "Moles A / kg solvent", "Weight / Volume", "Density"], correct: "Moles A / Total moles", price: 60, rent: 20 },
+        { id:8, mod: "CALCULATIONS", text: "Grams of NaOH (MW:40) for 500mL of 0.1M?", options: ["1g", "2g", "4g", "0.5g"], correct: "2g", price: 100, rent: 40 },
+
+        // TITRATIONS & INDICATORS
+        { id:9, mod: "TITRATIONS", text: "Indicator used in the Mohr Method?", options: ["Potassium Chromate", "Ferric Ion", "Starch", "Methyl Red"], correct: "Potassium Chromate", price: 80, rent: 30 },
+        { id:10, mod: "TITRATIONS", text: "The Volhard Method is a type of ___ titration:", options: ["Direct", "Back", "Complexometric", "Redox"], correct: "Back", price: 100, rent: 40 },
+        { id:11, mod: "TITRATIONS", text: "Indicator for EDTA titration at pH 10?", options: ["Murexide", "Erio-T", "Starch", "Phenolphthalein"], correct: "Erio-T", price: 80, rent: 30 },
+        { id:12, mod: "TITRATIONS", text: "EDTA is what type of ligand?", options: ["Bidentate", "Tetradentate", "Hexadentate", "Monodentate"], correct: "Hexadentate", price: 80, rent: 30 },
+        { id:13, mod: "TITRATIONS", text: "Starch is the indicator for which titration?", options: ["KMnO<sub>4</sub>", "Iodine", "EDTA", "AgNO<sub>3</sub>"], correct: "Iodine", price: 80, rent: 30 },
+        { id:14, mod: "TITRATIONS", text: "KMnO<sub>4</sub> titration is usually:", options: ["Self-indicating", "Requires Starch", "Requires Erio-T", "Uses Litmus"], correct: "Self-indicating", price: 80, rent: 30 },
+
+        // ACID-BASE & EQUILIBRIUM
+        { id:15, mod: "ACID-BASE", text: "Henderson-Hasselbalch: pH = pK<sub>a</sub> + log(___)", options: ["[A<sup>-</sup>]/[HA]", "[HA]/[A<sup>-</sup>]", "[OH<sup>-</sup>]/[H<sup>+</sup>]", "K<sub>w</sub>"], correct: "[A<sup>-</sup>]/[HA]", price: 100, rent: 40 },
+        { id:16, mod: "BUFFER", text: "Maximum buffering capacity occurs when:", options: ["pH = 7", "pH = pK<sub>a</sub>", "pOH = pK<sub>b</sub>", "pH = 1"], correct: "pH = pK<sub>a</sub>", price: 100, rent: 40 },
+        { id:17, mod: "ACID-BASE", text: "Bronsted-Lowry base is a:", options: ["Proton donor", "Proton acceptor", "Electron donor", "Hydroxyl source"], correct: "Proton acceptor", price: 50, rent: 20 },
+        { id:18, mod: "ACID-BASE", text: "Bronsted-Lowry acid is a:", options: ["Proton donor", "Proton acceptor", "Electron donor", "Electron acceptor"], correct: "Proton donor", price: 50, rent: 20 },
+
+        // IUPAC & COMPLEXES
+        { id:19, mod: "IUPAC", text: "Name for [Co(NH<sub>3</sub>)<sub>6</sub>]Cl<sub>3</sub>?", options: ["Hexaamminecobalt(III) chloride", "Cobalt hexammine chloride", "Hexaamminecobaltate chloride", "Cobalt ammine chloride"], correct: "Hexaamminecobalt(III) chloride", price: 100, rent: 40 },
+        { id:20, mod: "IUPAC", text: "Name for K<sub>4</sub>[Fe(CN)<sub>6</sub>]?", options: ["Potassium hexacyanoferrate(II)", "Potassium ferrate", "Hexacyanopotassium ferrate", "Potassium cyanoferrate(IV)"], correct: "Potassium hexacyanoferrate(II)", price: 100, rent: 40 },
+        { id:21, mod: "IUPAC", text: "Name for [Ag(NH<sub>3</sub>)<sub>2</sub>]<sup>+</sup>?", options: ["Diamminesilver(I) ion", "Silver diamine ion", "Diamminesilverate", "Argentum ion"], correct: "Diamminesilver(I) ion", price: 80, rent: 30 },
+
+        // VSEPR & STRUCTURES
+        { id:22, mod: "VSEPR", text: "Shape of NH<sub>3</sub> according to VSEPR?", options: ["Trigonal Planar", "Trigonal Pyramidal", "Tetrahedral", "Bent"], correct: "Trigonal Pyramidal", price: 60, rent: 20 },
+        { id:23, mod: "VSEPR", text: "Molecular shape of PCl<sub>5</sub>?", options: ["Octahedral", "Trigonal Bipyramidal", "Tetrahedral", "Linear"], correct: "Trigonal Bipyramidal", price: 100, rent: 40 },
+        { id:24, mod: "VSEPR", text: "Molecular shape of SF<sub>6</sub>?", options: ["Octahedral", "Tetrahedral", "Square Planar", "Bent"], correct: "Octahedral", price: 100, rent: 40 },
+
+        // HYBRIDIZATION & BONDING
+        { id:25, mod: "HYBRIDIZATION", text: "Hybridization of C in Methane (CH<sub>4</sub>)?", options: ["sp", "sp<sup>2</sup>", "sp<sup>3</sup>", "dsp<sup>2</sup>"], correct: "sp<sup>3</sup>", price: 60, rent: 20 },
+        { id:26, mod: "HYBRIDIZATION", text: "Hybridization of C in Ethene (C<sub>2</sub>H<sub>4</sub>)?", options: ["sp", "sp<sup>2</sup>", "sp<sup>3</sup>", "sp<sup>3</sup>d"], correct: "sp<sup>2</sup>", price: 80, rent: 30 },
+        { id:27, mod: "HYBRIDIZATION", text: "Hybridization in PCl<sub>5</sub>?", options: ["sp<sup>3</sup>d", "sp<sup>3</sup>d<sup>2</sup>", "sp<sup>2</sup>", "dsp<sup>2</sup>"], correct: "sp<sup>3</sup>d", price: 100, rent: 40 },
+        { id:28, mod: "HYBRIDIZATION", text: "Hybridization in SF<sub>6</sub>?", options: ["sp<sup>3</sup>d<sup>2</sup>", "sp<sup>3</sup>d", "sp<sup>3</sup>", "sp<sup>2</sup>"], correct: "sp<sup>3</sup>d<sup>2</sup>", price: 100, rent: 40 },
+
+        // MO THEORY
+        { id:29, mod: "MO THEORY", text: "Bond order for O<sub>2</sub><sup>+</sup> in MO theory?", options: ["1.5", "2.0", "2.5", "3.0"], correct: "2.5", price: 100, rent: 40 },
+        { id:30, mod: "MO THEORY", text: "Paramagnetism of Oxygen is explained by:", options: ["VSEPR", "Valence Bond", "Molecular Orbital", "Lewis Theory"], correct: "Molecular Orbital", price: 100, rent: 40 }
     ];
 
-    const tileNames = ["GO", "Molarity", "IUPAC", "AUDIT", "EDTA", "Redox", "Molality", "Mohr", "Buffer", "AUDIT", "pH/pK<sub>a</sub>", "Volhard", "Lab Bonus", "Precision", "VSEPR", "Henderson", "AUDIT", "Mole Frac", "Iodine", "NaOH Calc", "HCl Calc", "Hybridize"];
+    const tileNames = ["GO", "ANALYTICAL", "IUPAC", "AUDIT", "EDTA", "REDOX", "CONC.", "TITRATIONS", "BUFFER", "AUDIT", "ACID-BASE", "TITRATIONS", "LAB BONUS", "ANALYTICAL", "VSEPR", "EQUILIBRIUM", "AUDIT", "CONC.", "REDOX", "CALCULATIONS", "HYBRIDIZATION", "MO THEORY"];
     const ownerCols = ["#6c5ce7", "#00d2d3", "#e67e22", "#ff9ff3"];
     let players = [], turn = 0, rolling = false, owners = {}, chars = [{id:0, icon:'🐱', n:'CAT-ALYST', a:false},{id:1, icon:'🐶', n:'DOG-MA', a:false},{id:2, icon:'🦊', n:'FOX-PHATE', a:false},{id:3, icon:'🐰', n:'BUN-SEN', a:false}];
-    let usedQsGlobal = [];
+    let usedQs = [];
 
     function togglePlayer(id){
         chars[id].a = !chars[id].a;
@@ -149,7 +163,7 @@
     }
 
     function startGame(){
-        players = chars.filter(c=>c.a).map(c=>({...c, pos:0, pts:100, skip:false, rounds:1}));
+        players = chars.filter(c=>c.a).map(c=>({...c, pos:0, pts:30, skip:false, rounds:1}));
         document.getElementById('screen-lobby').style.display = 'none';
         document.getElementById('screen-game').classList.add('active');
         initBoard();
@@ -195,43 +209,40 @@
     function movePlayer(s){
         let p = players[turn]; let old = p.pos; p.pos = (p.pos + s) % 22;
         if(p.pos < old) { 
-            p.pts += 50; 
-            p.rounds++;
+            p.pts += 50; p.rounds++;
             document.getElementById('roundAlert').style.display='block'; 
             setTimeout(()=>document.getElementById('roundAlert').style.display='none', 1500); 
-            if(p.rounds > 3) { checkEndGame(); return; }
+            if(p.rounds > 3) checkEndGame();
         }
-        document.getElementById('roundCounter').innerText = `ROUND: ${p.rounds}/3`;
         updatePieces(); setTimeout(()=>handleLanding(p), 600);
     }
 
     function handleLanding(p){
         if(p.pos === 0) { endTurn(); return; }
-        if(tileNames[p.pos] === "Lab Bonus") { p.pts += 50; alert("LAB BONUS! +50 PTS"); endTurn(); return; }
-        if(tileNames[p.pos] === "AUDIT") { p.pts -= 40; alert("Audit Penalty! -40 PTS"); endTurn(); return; }
+        if(tileNames[p.pos] === "LAB BONUS") { p.pts += 40; alert("LAB BONUS! +40 PTS"); endTurn(); return; }
+        if(tileNames[p.pos] === "AUDIT") { p.pts -= 20; alert("Audit Penalty! -20 PTS"); endTurn(); return; }
         if(owners[p.pos] !== undefined && owners[p.pos] !== turn){
-            let q = questions[p.pos % questions.length];
-            let o = players[owners[p.pos]]; p.pts -= q.rent; o.pts += q.rent;
-            alert(`Paid ${q.rent} rent to ${o.icon}`); endTurn();
+            let o = players[owners[p.pos]]; p.pts -= 25; o.pts += 25;
+            alert(`Rent Paid: 25 PTS to ${o.icon}`); endTurn();
         } else { showQuestion(p.pos, p); }
     }
 
     function showQuestion(tid, p){
-        let pool = questions.filter(q => !usedQsGlobal.includes(q.id));
-        if(pool.length === 0) { usedQsGlobal = []; pool = questions; }
+        let pool = questions.filter(q => !usedQs.includes(q.id));
+        if(pool.length === 0) { usedQs = []; pool = questions; }
         const q = pool[Math.floor(Math.random()*pool.length)];
-        usedQsGlobal.push(q.id);
+        usedQs.push(q.id);
         document.getElementById('qOverlay').style.display = 'flex';
-        document.getElementById('qText').innerHTML = q.text;
+        document.getElementById('qText').innerHTML = `<small>${q.mod}</small><br>${q.text}`;
         const area = document.getElementById('optionsArea'); area.innerHTML = '';
         q.options.forEach(opt => {
             const b = document.createElement('button'); b.className = 'btn-mcq'; b.innerHTML = opt;
             b.onclick = () => {
                 if(opt === q.correct){
-                    play('correct'); p.pts += 40; updateStats();
-                    if(owners[tid] === undefined) showBuyMenu(tid, p, q.price);
+                    play('correct'); p.pts += 20; updateStats();
+                    if(owners[tid] === undefined && p.pts >= q.price) showBuyMenu(tid, p, q.price);
                     else endTurn();
-                } else { play('wrong'); p.pts -= 20; updateStats(); endTurn(); }
+                } else { play('wrong'); p.pts -= 30; updateStats(); endTurn(); }
             };
             area.appendChild(b);
         });
@@ -239,18 +250,16 @@
 
     function showBuyMenu(tid, p, price){
         const area = document.getElementById('optionsArea');
-        document.getElementById('qText').innerHTML = `CORRECT! Buy ${tileNames[tid]} for ${price} PTS?`;
+        document.getElementById('qText').innerHTML = `CORRECT! Spend ${price} PTS to buy ${tileNames[tid]}?`;
         area.innerHTML = '';
-        const b = document.createElement('button'); b.className = 'btn'; b.style.background = 'var(--gold)'; b.style.color='#000'; b.innerText = `BUY LAND`;
+        const b = document.createElement('button'); b.className = 'btn'; b.style.background = 'var(--gold)'; b.style.color='#000'; b.innerText = `PURCHASE`;
         b.onclick = () => {
-            if(p.pts >= price){
-                p.pts -= price; owners[tid] = turn;
-                const t = document.getElementById('t'+tid);
-                t.style.background = ownerCols[p.id]; t.innerHTML += `<span class="owner-tag">${p.icon}</span>`;
-            }
+            p.pts -= price; owners[tid] = turn;
+            const t = document.getElementById('t'+tid);
+            t.style.background = ownerCols[p.id]; t.innerHTML += `<span class="owner-tag">${p.icon}</span>`;
             endTurn();
         };
-        const s = document.createElement('button'); s.className = 'btn'; s.style.background='#4b5563'; s.innerText = "SKIP";
+        const s = document.createElement('button'); s.className = 'btn'; s.style.background='#4b5563'; s.innerText = "PASS";
         s.onclick = endTurn;
         area.appendChild(b); area.appendChild(s);
     }
@@ -260,7 +269,7 @@
         let ts = players.filter((_,i)=>i!==turn);
         if(ts.length > 0){
             let t = ts[Math.floor(Math.random()*ts.length)];
-            t.skip = true; alert(`${t.icon} skip turn.`);
+            t.skip = true; alert(`Chance! ${t.icon} skip turn.`);
         }
         updateStats();
     }
@@ -272,13 +281,6 @@
         document.getElementById('stat'+turn).classList.add('active-turn');
         updateStatus();
     }
-
-    function checkEndGame(){
-        let win = [...players].sort((a,b) => b.pts - a.pts);
-        alert(`GAME OVER! ${win.icon} wins with ${win.pts} PTS!`);
-        location.reload();
-    }
-
     function updateStats(){ players.forEach((p,i)=>document.getElementById('pts'+i).innerText = p.pts); }
     function updateStatus(){ document.getElementById('statusLabel').innerText = players[turn].icon + "'S TURN"; }
     function updatePieces(){
@@ -286,6 +288,11 @@
             const t = document.getElementById('t'+p.pos); const pc = document.getElementById('piece'+p.id);
             if(t && pc){ pc.style.left = (t.offsetLeft + (i%2)*10 + 2)+'px'; pc.style.top = (t.offsetTop + Math.floor(i/2)*10 + 2)+'px'; }
         });
+    }
+    function checkEndGame(){
+        let win = [...players].sort((a,b) => b.pts - a.pts);
+        alert(`GAME OVER! ${win.icon} is the Top Researcher with ${win.pts} PTS!`);
+        location.reload();
     }
 </script>
 </body>
